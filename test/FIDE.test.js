@@ -7,11 +7,11 @@
   var chai = require('chai');
   var should = chai.should();
 
-  var ICC = require('./../src/ICC.js');
+  var FIDE = require('./../src/FIDE.js');
 
-  describe('ICC', function() {
+  describe('FIDE', function() {
     it('should be defined', function() {
-      ICC.should.not.be.undefined;
+      FIDE.should.not.be.undefined;
     });
 
     describe('finger', function() {
@@ -33,7 +33,7 @@
       it('should make a request to chessclub.com/finger', function(done) {
         var handle = 'handle';
 
-        ICC.finger(handle, function(exists, name, title, rating, profileUrl){
+        FIDE.finger(handle, function(exists, name, title, rating, profileUrl){
           request.get.calledWith(FINGER_URL + handle).should.equal(true);
           done();
         });
@@ -54,7 +54,7 @@
         });
 
         it('should have a name, title, rating and fide profile url', function(done) {
-          ICC.finger(handle, function(exists, name, title, rating, profileUrl) {
+          FIDE.finger(handle, function(exists, name, title, rating, profileUrl) {
             exists.should.be.true;
             name.should.have.length.above(0);
             rating.should.have.length.above(0);
