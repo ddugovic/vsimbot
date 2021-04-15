@@ -2,6 +2,7 @@
 
 var nconf = require('nconf');
 
+var ICC = require('./../ICC.js');
 var FIDE = require('./../FIDE.js');
 var Chesscom = require('./../Chesscom.js');
 
@@ -72,6 +73,17 @@ var finger = function(from, to, message, raw, match) {
       FIDE.getProfileUrl(chesscomInfo.name, function(fideProfileUrl) {
         FIDE.getPlayerInfo(fideProfileUrl, function(fideInfo) {
           printFinger(handle, exists, chesscomInfo, fideInfo);
+        });
+      });
+    });
+  } else {
+    ICC.finger(handle, function(exists, iccInfo, twitchName) {
+      // Not displaying anything if the account doesn't exist
+      if (!exists) { return; }
+
+      FIDE.getProfileUrl(iccInfo.name, function(fideProfileUrl) {
+        FIDE.getPlayerInfo(fideProfileUrl, function(fideInfo) {
+          printFinger(handle, exists, iccInfo, fideInfo, twitchName);
         });
       });
     });
