@@ -16,7 +16,7 @@
 
     describe('finger', function() {
       var stub;
-      var FINGER_URL = 'http://www6.chessclub.com/finger/';
+      var PROFILE_URL = 'https://app.chessclub.com/profile/';
 
       before(function(done) {
         stub = sinon.stub(request, 'get');
@@ -30,11 +30,11 @@
         done();
       });
 
-      it('should make a request to chessclub.com/finger', function(done) {
+      it('should make a request to app.chessclub.com/profile', function(done) {
         var handle = 'handle';
 
         ICC.finger(handle, function(exists, name, title, rating, profileUrl){
-          request.get.calledWith(FINGER_URL + handle).should.equal(true);
+          request.get.calledWith(PROFILE_URL + handle).should.equal(true);
           done();
         });
       });
@@ -48,7 +48,7 @@
           fs.readFile(fixture, 'utf8', function(err, data) {
             if (err) { throw err; }
 
-            stub.withArgs(FINGER_URL + handle).yields(null, 200, data);
+            stub.withArgs(PROFILE_URL + handle).yields(null, 200, data);
             done();
           });
         });

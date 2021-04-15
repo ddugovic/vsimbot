@@ -6,7 +6,7 @@ var request = require('request');
 var ICC = {
   finger: function(handle, callback) {
     var self = this;
-    var url = 'http://www6.chessclub.com/finger/' + handle;
+    var PROFILE_URL = 'https://app.chessclub.com/profile/';
 
     var parseFinger = function(err, response, html) {
       var exists, name, groups, title, twitchName;
@@ -56,14 +56,14 @@ var ICC = {
         }
       }
 
-      info.url = url;
+      info.url = PROFILE_URL + handle;
 
       twitchName = self.lookupPlayer(handle, 'twitch');
 
       callback && callback(exists, info, twitchName);
     };
 
-    request.get(url, parseFinger);
+    request.get(info.url, parseFinger);
   },
 
   getTitle: function(groups) {
