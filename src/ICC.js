@@ -6,7 +6,7 @@ var request = require('request');
 var ICC = {
   finger: function(handle, callback) {
     var self = this;
-    var PROFILE_URL = 'https://app.chessclub.com/profile/';
+    var RATINGS_URL = 'https://statistics.chessclub.com/embed/ratings?user=';
 
     var parseFinger = function(err, response, html) {
       var exists, name, groups, title, twitchName;
@@ -56,7 +56,7 @@ var ICC = {
         }
       }
 
-      info.url = PROFILE_URL + handle;
+      info.url = RATINGS_URL + handle;
 
       twitchName = self.lookupPlayer(handle, 'twitch');
 

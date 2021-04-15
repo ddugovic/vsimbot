@@ -16,7 +16,7 @@
 
     describe('finger', function() {
       var stub;
-      var PROFILE_URL = 'https://app.chessclub.com/profile/';
+      var RATINGS_URL = 'https://statistics.chessclub.com/embed/ratings?user=';
 
       before(function(done) {
         stub = sinon.stub(request, 'get');
@@ -34,7 +34,7 @@
         var handle = 'handle';
 
         ICC.finger(handle, function(exists, name, title, rating, profileUrl){
-          request.get.calledWith(PROFILE_URL + handle).should.equal(true);
+          request.get.calledWith(RATINGS_URL + handle).should.equal(true);
           done();
         });
       });
@@ -48,7 +48,7 @@
           fs.readFile(fixture, 'utf8', function(err, data) {
             if (err) { throw err; }
 
-            stub.withArgs(PROFILE_URL + handle).yields(null, 200, data);
+            stub.withArgs(RATINGS_URL + handle).yields(null, 200, data);
             done();
           });
         });
